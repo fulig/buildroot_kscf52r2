@@ -1,0 +1,25 @@
+31c31
+< 	select HAVE_LEGACY_CLK
+---
+> 	select HAVE_CLK
+161a162,169
+> config KSCF52xx
+>   bool "KSCF52xx"
+>   depends on !MMU
+>   select GENERIC_CLOCKEVENTS
+>   select HAVE_CACHE_SPLIT
+>   help
+>     University of Kassel 1oo2 Safety SoC based on CFv2SPP5208.
+> 
+346c354
+< 	help
+---
+> 	---help---
+361c369
+< 	help
+---
+> 	---help---
+389c397
+< 	help
+---
+> 	---help---
