@@ -1,5 +1,5 @@
---- ../../output/build/linux-5.10/arch/m68k/coldfire/Makefile	2020-12-13 23:41:30.000000000 +0100
-+++ ../../changed_files/linux-3.x/arch/m68k/coldfire/Makefile	2020-12-15 17:04:15.563696026 +0100
+--- output/build/linux-5.10/arch/m68k/coldfire/Makefile	2020-12-13 23:41:30.000000000 +0100
++++ changed_files/linux-3.x/arch/m68k/coldfire/Makefile	2020-12-15 17:04:15.563696026 +0100
 @@ -19,6 +19,7 @@
  obj-$(CONFIG_M5206)	+= m5206.o timers.o intc.o reset.o
  obj-$(CONFIG_M5206e)	+= m5206.o timers.o intc.o reset.o

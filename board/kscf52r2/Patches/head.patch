@@ -1,5 +1,5 @@
---- ../../output/build/linux-5.10/arch/m68k/coldfire/head.S	2020-12-13 23:41:30.000000000 +0100
-+++ ../../changed_files/linux-3.x/arch/m68k/coldfire/head.S	2020-12-17 17:57:01.317651662 +0100
+--- output/build/linux-5.10/arch/m68k/coldfire/head.S	2020-12-13 23:41:30.000000000 +0100
++++ changed_files/linux-3.x/arch/m68k/coldfire/head.S	2020-12-17 17:57:01.317651662 +0100
 @@ -1,10 +1,9 @@
 -/* SPDX-License-Identifier: GPL-2.0 */
  /*****************************************************************************/

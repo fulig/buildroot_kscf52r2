@@ -1,5 +1,5 @@
---- ../../output/build/linux-5.10/drivers/net/ethernet/freescale/fec_main.c	2020-12-13 23:41:30.000000000 +0100
-+++ ../../changed_files/linux-3.x/drivers/net/ethernet/freescale/fec_main.c	2020-12-15 17:04:15.567695034 +0100
+--- output/build/linux-5.10/drivers/net/ethernet/freescale/fec_main.c	2020-12-13 23:41:30.000000000 +0100
++++ changed_files/linux-3.x/drivers/net/ethernet/freescale/fec_main.c	2020-12-15 17:04:15.567695034 +0100
 @@ -75,6 +75,8 @@
  
  #define DRIVER_NAME	"fec"

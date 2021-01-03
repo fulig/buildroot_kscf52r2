@@ -1,5 +1,5 @@
---- ../../output/build/linux-5.10/drivers/net/ethernet/freescale/Kconfig	2020-12-13 23:41:30.000000000 +0100
-+++ ../../changed_files/linux-3.x/drivers/net/ethernet/freescale/Kconfig	2020-12-15 17:04:15.563696026 +0100
+--- output/build/linux-5.10/drivers/net/ethernet/freescale/Kconfig	2020-12-13 23:41:30.000000000 +0100
++++ changed_files/linux-3.x/drivers/net/ethernet/freescale/Kconfig	2020-12-15 17:04:15.563696026 +0100
 @@ -1,106 +1,96 @@
 -# SPDX-License-Identifier: GPL-2.0-only
  #
