@@ -1,5 +1,5 @@
---- output/build/linux-5.10/arch/m68k/coldfire/timers.c	2020-12-13 23:41:30.000000000 +0100
-+++ changed_files/linux-3.x/arch/m68k/coldfire/timers.c	2020-12-17 17:57:01.317651662 +0100
+--- /home/misterdulister/Coding/buildroot_kscf52r2/output/build/linux-5.4.45/arch/m68k/coldfire/timers.c	2020-06-07 13:18:52.000000000 +0200
++++ /home/misterdulister/Coding/buildroot_kscf52r2/changed_files/linux-3.x/arch/m68k/coldfire/timers.c	2020-12-17 17:57:01.317651662 +0100
 @@ -1,10 +1,9 @@
 -// SPDX-License-Identifier: GPL-2.0
  /***************************************************************************/
@@ -72,7 +72,7 @@
  #endif
  #endif /* MCFSIM_ICR_AUTOVEC */
  }
-@@ -73,69 +72,71 @@
+@@ -73,71 +72,71 @@
  
  static irqreturn_t mcftmr_tick(int irq, void *dummy)
  {
@@ -89,25 +89,28 @@
  
  /***************************************************************************/
  
--static u64 mcftmr_read_clk(struct clocksource *cs)
--{
--	unsigned long flags;
--	u32 cycles;
--	u16 tcn;
-+static struct irqaction mcftmr_timer_irq = {
+ static struct irqaction mcftmr_timer_irq = {
+-	.name	 = "timer",
+-	.flags	 = IRQF_TIMER,
+-	.handler = mcftmr_tick,
 +  .name  = "timer",
 +  .flags   = IRQF_DISABLED | IRQF_TIMER,
 +  .handler = mcftmr_tick,
-+};
+ };
  
+ /***************************************************************************/
+ 
+-static u64 mcftmr_read_clk(struct clocksource *cs)
++static cycle_t mcftmr_read_clk(struct clocksource *cs)
+ {
+-	unsigned long flags;
+-	u32 cycles;
+-	u16 tcn;
+-
 -	local_irq_save(flags);
 -	tcn = __raw_readw(TA(MCFTIMER_TCN));
 -	cycles = mcftmr_cnt;
 -	local_irq_restore(flags);
-+/***************************************************************************/
-+
-+static cycle_t mcftmr_read_clk(struct clocksource *cs)
-+{
 +  unsigned long flags;
 +  u32 cycles;
 +  u16 tcn;
@@ -140,8 +143,6 @@
  
  void hw_timer_init(irq_handler_t handler)
  {
--	int r;
--
 -	__raw_writew(MCFTIMER_TMR_DISABLE, TA(MCFTIMER_TMR));
 -	mcftmr_cycles_per_jiffy = FREQ / HZ;
 -	/*
@@ -158,11 +159,7 @@
 -
 -	timer_interrupt = handler;
 -	init_timer_irq();
--	r = request_irq(MCF_IRQ_TIMER, mcftmr_tick, IRQF_TIMER, "timer", NULL);
--	if (r) {
--		pr_err("Failed to request irq %d (timer): %pe\n", MCF_IRQ_TIMER,
--		       ERR_PTR(r));
--	}
+-	setup_irq(MCF_IRQ_TIMER, &mcftmr_timer_irq);
 +  __raw_writew(MCFTIMER_TMR_DISABLE, TA(MCFTIMER_TMR));
 +  mcftmr_cycles_per_jiffy = FREQ / HZ;
 +  /*
@@ -187,7 +184,7 @@
  #endif
  }
  
-@@ -144,52 +145,51 @@
+@@ -146,51 +145,51 @@
  /***************************************************************************/
  
  /*
@@ -226,16 +223,17 @@
  
  /***************************************************************************/
  
-+static struct irqaction coldfire_profile_irq = {
+ static struct irqaction coldfire_profile_irq = {
+-	.name	 = "profile timer",
+-	.flags	 = IRQF_TIMER,
+-	.handler = coldfire_profile_tick,
 +  .name  = "profile timer",
 +  .flags   = IRQF_DISABLED | IRQF_TIMER,
 +  .handler = coldfire_profile_tick,
-+};
-+
+ };
+ 
  void coldfire_profile_init(void)
  {
--	int ret;
--
 -	printk(KERN_INFO "PROFILE: lodging TIMER2 @ %dHz as profile timer\n",
 -	       PROFILEHZ);
 +  printk(KERN_INFO "PROFILE: lodging TIMER2 @ %dHz as profile timer\n",
@@ -253,12 +251,7 @@
 +  __raw_writew(MCFTIMER_TMR_ENORI | MCFTIMER_TMR_CLK16 |
 +    MCFTIMER_TMR_RESTART | MCFTIMER_TMR_ENABLE, PA(MCFTIMER_TMR));
  
--	ret = request_irq(MCF_IRQ_PROFILER, coldfire_profile_tick, IRQF_TIMER,
--			  "profile timer", NULL);
--	if (ret) {
--		pr_err("Failed to request irq %d (profile timer): %pe\n",
--		       MCF_IRQ_PROFILER, ERR_PTR(ret));
--	}
+-	setup_irq(MCF_IRQ_PROFILER, &coldfire_profile_irq);
 +  setup_irq(MCF_IRQ_PROFILER, &coldfire_profile_irq);
  }
  

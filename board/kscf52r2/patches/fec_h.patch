@@ -1,5 +1,5 @@
---- output/build/linux-5.10/drivers/net/ethernet/freescale/fec.h	2020-12-13 23:41:30.000000000 +0100
-+++ changed_files/linux-3.x/drivers/net/ethernet/freescale/fec.h	2020-12-15 17:04:15.563696026 +0100
+--- /home/misterdulister/Coding/buildroot_kscf52r2/output/build/linux-5.4.45/drivers/net/ethernet/freescale/fec.h	2020-06-07 13:18:52.000000000 +0200
++++ /home/misterdulister/Coding/buildroot_kscf52r2/changed_files/linux-3.x/drivers/net/ethernet/freescale/fec.h	2020-12-15 17:04:15.563696026 +0100
 @@ -1,336 +1,179 @@
 -/* SPDX-License-Identifier: GPL-2.0 */
  /****************************************************************************/
@@ -471,7 +471,7 @@
  
  /* The number of Tx and Rx buffers.  These are allocated from the page
   * pool.  The code may assume these are power of two, so it it best
-@@ -339,164 +182,25 @@
+@@ -339,159 +182,25 @@
   * the skbuffer directly.
   */
  
@@ -512,7 +512,8 @@
 -#define FEC_ENET_TS_AVAIL       ((uint)0x00010000)
 -#define FEC_ENET_TS_TIMER       ((uint)0x00008000)
 -
--#define FEC_DEFAULT_IMASK (FEC_ENET_TXF | FEC_ENET_RXF)
+-#define FEC_DEFAULT_IMASK (FEC_ENET_TXF | FEC_ENET_RXF | FEC_ENET_MII)
+-#define FEC_NAPI_IMASK	FEC_ENET_MII
 -#define FEC_RX_DISABLED_IMASK (FEC_DEFAULT_IMASK & (~FEC_ENET_RXF))
 -
 -/* ENET interrupt coalescing macro define */
@@ -592,12 +593,6 @@
 - */
 -#define FEC_QUIRK_HAS_FRREG		(1 << 16)
 -
--/* Some FEC hardware blocks need the MMFR cleared at setup time to avoid
-- * the generation of an MII event. This must be avoided in the older
-- * FEC blocks where it will stop MII events being generated.
-- */
--#define FEC_QUIRK_CLEAR_SETUP_MII	(1 << 17)
--
 -struct bufdesc_prop {
 -	int qid;
 -	/* Address of Rx and Tx buffers */
@@ -655,7 +650,7 @@
  };
  
  /* The FEC buffer descriptors track the ring buffers.  The rx_bd_base and
-@@ -508,97 +212,71 @@
+@@ -503,102 +212,71 @@
   * the buffer descriptor determines the actual condition.
   */
  struct fec_enet_private {
@@ -684,6 +679,11 @@
 -	unsigned int total_tx_ring_size;
 -	unsigned int total_rx_ring_size;
 -
+-	unsigned long work_tx;
+-	unsigned long work_rx;
+-	unsigned long work_ts;
+-	unsigned long work_mdio;
+-
 -	struct	platform_device *pdev;
 -
 -	int	dev_id;
@@ -696,6 +696,7 @@
 -	int	link;
 -	int	full_duplex;
 -	int	speed;
+-	struct	completion mdio_done;
 -	int	irq[FEC_IRQ_NUM];
 -	bool	bufdesc_ex;
 -	int	pause_flag;
@@ -744,7 +745,7 @@
 -	unsigned int next_counter;
 +  struct net_device *netdev;
  
--	u64 ethtool_stats[];
+-	u64 ethtool_stats[0];
 +  struct clk *clk_ipg;
 +  struct clk *clk_ahb;
 +  struct clk *clk_enet_out;
@@ -806,7 +807,6 @@
 -void fec_ptp_stop(struct platform_device *pdev);
 +void fec_ptp_init(struct net_device *ndev, struct platform_device *pdev);
  void fec_ptp_start_cyclecounter(struct net_device *ndev);
--void fec_ptp_disable_hwts(struct net_device *ndev);
 -int fec_ptp_set(struct net_device *ndev, struct ifreq *ifr);
 -int fec_ptp_get(struct net_device *ndev, struct ifreq *ifr);
 +int fec_ptp_ioctl(struct net_device *ndev, struct ifreq *ifr, int cmd);
