@@ -1,39 +1,11 @@
 --- /home/misterdulister/Coding/buildroot_kscf52r2/output/build/linux-5.4.45/arch/m68k/include/asm/mcfsim.h	2020-06-07 13:18:52.000000000 +0200
-+++ /home/misterdulister/Coding/buildroot_kscf52r2/changed_files/linux-3.x/arch/m68k/include/asm/mcfsim.h	2020-12-15 17:04:15.563696026 +0100
-@@ -1,16 +1,15 @@
--/* SPDX-License-Identifier: GPL-2.0 */
- /****************************************************************************/
- 
- /*
-- *	mcfsim.h -- ColdFire System Integration Module support.
-+ *  mcfsim.h -- ColdFire System Integration Module support.
-  *
-- *	(C) Copyright 1999-2003, Greg Ungerer (gerg@snapgear.com)
-- * 	(C) Copyright 2000, Lineo Inc. (www.lineo.com)
-+ *  (C) Copyright 1999-2003, Greg Ungerer (gerg@snapgear.com)
-+ *  (C) Copyright 2000, Lineo Inc. (www.lineo.com)
-  */
- 
- /****************************************************************************/
--#ifndef	mcfsim_h
--#define	mcfsim_h
-+#ifndef mcfsim_h
-+#define mcfsim_h
- /****************************************************************************/
- 
- /*
-@@ -20,6 +19,8 @@
- #if defined(CONFIG_M5206) || defined(CONFIG_M5206e)
- #include <asm/m5206sim.h>
++++ /home/misterdulister/Coding/buildroot_kscf52r2/changed_files/linux-3.x/arch/m68k/include/asm/mcfsim.h	2021-01-26 11:04:33.636166593 +0100
+@@ -22,6 +22,8 @@
  #include <asm/mcfintc.h>
-+#elif defined(CONFIG_KSCF52xx)
-+#include <asm/kscf52xxsim.h>
  #elif defined(CONFIG_M520x)
  #include <asm/m520xsim.h>
++#elif defined(CONFIG_KSCF52xx)
++#include <asm/kscf52xxsim.h>
  #elif defined(CONFIG_M523x)
-@@ -49,4 +50,4 @@
- #endif
- 
- /****************************************************************************/
--#endif	/* mcfsim_h */
-+#endif  /* mcfsim_h */
+ #include <asm/m523xsim.h>
+ #include <asm/mcfintc.h>

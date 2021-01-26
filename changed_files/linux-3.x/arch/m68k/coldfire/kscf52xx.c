@@ -117,9 +117,45 @@ static void __init m520x_clk_init(void)
 }
 
 /***************************************************************************/
+typedef struct {
+  volatile uint16_t gpio_oen;
+  volatile uint16_t gpio_mux;
+  volatile uint16_t gpio_out;
+  volatile uint16_t gpio_in;
+  volatile uint16_t dout;
+  volatile uint16_t din;
+} GPIO_t;
+
+#define ICC_BASE              (0xFC060000 + 0x00008000)
+#define ICC_INPUTPORT_R       (ICC_BASE + 0x00000034)
+#define ICC_OUTPORTBITSET_W   (ICC_BASE + 0x00000038)
+#define ICC_OUTPORTBITRESET_W (ICC_BASE + 0x0000003C)
+
+#define UART1_BASE              (0xFC060000 + 0x00004000)
+#define UART1_INPUTPORT_R       (UART1_BASE + 0x00000034)
+#define UART1_OUTPORTBITSET_W   (UART1_BASE + 0x00000038)
+#define UART1_OUTPORTBITRESET_W (UART1_BASE + 0x0000003C)
+
+#define SRAM_START      0x80000000
+#define PLATFORM_REV    (unsigned short *)0xFC040002
+#define CORE1           0xA001
+#define CORE2           0xB001
+
+#define PWM_IVEC_TEMP_ADR 0x80001000
+#define PWM_STATE_REG     0x80001004
+#define PWM_DC_REG        0x80001008
+#define PWM_FREQ_REG      0x8000100C
+#define PWM_REF_REG       0xFC078004
+
+#define CNT_IVEC_TEMP_ADR 0x80001010
+#define CNT_TMP           0x80001014
+
+
 
 void __init config_BSP(char *commandp, int size)
 {
+
+  
   mach_sched_init = hw_timer_init;
 }
 

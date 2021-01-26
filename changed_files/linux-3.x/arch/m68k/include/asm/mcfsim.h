@@ -1,15 +1,16 @@
+/* SPDX-License-Identifier: GPL-2.0 */
 /****************************************************************************/
 
 /*
- *  mcfsim.h -- ColdFire System Integration Module support.
+ *	mcfsim.h -- ColdFire System Integration Module support.
  *
- *  (C) Copyright 1999-2003, Greg Ungerer (gerg@snapgear.com)
- *  (C) Copyright 2000, Lineo Inc. (www.lineo.com)
+ *	(C) Copyright 1999-2003, Greg Ungerer (gerg@snapgear.com)
+ * 	(C) Copyright 2000, Lineo Inc. (www.lineo.com)
  */
 
 /****************************************************************************/
-#ifndef mcfsim_h
-#define mcfsim_h
+#ifndef	mcfsim_h
+#define	mcfsim_h
 /****************************************************************************/
 
 /*
@@ -19,10 +20,10 @@
 #if defined(CONFIG_M5206) || defined(CONFIG_M5206e)
 #include <asm/m5206sim.h>
 #include <asm/mcfintc.h>
-#elif defined(CONFIG_KSCF52xx)
-#include <asm/kscf52xxsim.h>
 #elif defined(CONFIG_M520x)
 #include <asm/m520xsim.h>
+#elif defined(CONFIG_KSCF52xx)
+#include <asm/kscf52xxsim.h>
 #elif defined(CONFIG_M523x)
 #include <asm/m523xsim.h>
 #include <asm/mcfintc.h>
@@ -50,4 +51,4 @@
 #endif
 
 /****************************************************************************/
-#endif  /* mcfsim_h */
+#endif	/* mcfsim_h */

@@ -1,5 +1,5 @@
 --- /home/misterdulister/Coding/buildroot_kscf52r2/output/build/linux-5.4.45/arch/m68k/coldfire/Makefile	2020-06-07 13:18:52.000000000 +0200
-+++ /home/misterdulister/Coding/buildroot_kscf52r2/changed_files/linux-3.x/arch/m68k/coldfire/Makefile	2020-12-15 17:04:15.563696026 +0100
++++ /home/misterdulister/Coding/buildroot_kscf52r2/changed_files/linux-3.x/arch/m68k/coldfire/Makefile	2021-01-26 11:03:32.444081948 +0100
 @@ -19,6 +19,7 @@
  obj-$(CONFIG_M5206)	+= m5206.o timers.o intc.o reset.o
  obj-$(CONFIG_M5206e)	+= m5206.o timers.o intc.o reset.o

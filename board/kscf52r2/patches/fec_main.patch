@@ -1,5 +1,5 @@
 --- /home/misterdulister/Coding/buildroot_kscf52r2/output/build/linux-5.4.45/drivers/net/ethernet/freescale/fec_main.c	2020-06-07 13:18:52.000000000 +0200
-+++ /home/misterdulister/Coding/buildroot_kscf52r2/changed_files/linux-3.x/drivers/net/ethernet/freescale/fec_main.c	2020-12-15 17:04:15.567695034 +0100
++++ /home/misterdulister/Coding/buildroot_kscf52r2/changed_files/linux-3.x/drivers/net/ethernet/freescale/fec_main.c	2021-01-26 11:05:48.604244961 +0100
 @@ -237,7 +237,7 @@
   * account when setting it.
   */
