@@ -16,3 +16,4 @@ patch ${BUILD_DIR}/linux-5.4.45/arch/m68k/include/asm/mcftimer.h < ${BASE_DIR}/.
 cp ${BASE_DIR}/../board/kscf52r2/new_files/kscf52xx.c ${BUILD_DIR}/linux-5.4.45/arch/m68k/coldfire
 cp ${BASE_DIR}/../board/kscf52r2/new_files/kscf52xxsim.h ${BUILD_DIR}/linux-5.4.45/arch/m68k/include/asm
 
+gunzip -c ${BUILD_DIR}/linux-5.4.45/vmlinux.gz > ${BINARIES_DIR}/vmlinux.bin
