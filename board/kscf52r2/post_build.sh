@@ -17,3 +17,4 @@ cp ${BASE_DIR}/../board/kscf52r2/new_files/kscf52xx.c ${BUILD_DIR}/linux-5.4.45/
 cp ${BASE_DIR}/../board/kscf52r2/new_files/kscf52xxsim.h ${BUILD_DIR}/linux-5.4.45/arch/m68k/include/asm
 
 gunzip -c ${BUILD_DIR}/linux-5.4.45/vmlinux.gz > ${BINARIES_DIR}/vmlinux.bin
+${BINARIES_DIR}/../host/bin/m68k-buildroot-uclinux-uclibc-objcopy -O binary ${BINARIES_DIR}/vmlinux ${BINARIES_DIR}/vmlinux.bin
